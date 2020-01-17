@@ -44,7 +44,7 @@ void setup() {
 //    lcd.setCursor(10,1);
 //    lcd.print(kd);
 //    }  
-  kp=5;
+  kp=1;
   kd=0;
   ki=0; 
   time=millis();
@@ -62,7 +62,7 @@ void loop() {
       measure = 18;
     }
     error = setPoint - measure;
-    Serial.println(measure);
+//    Serial.println(measure);
     // Proportioanl control
     PID_p = error*kp; // Apply proportional control using set kp values
 //    Serial.print("PID_p=");
@@ -87,10 +87,12 @@ void loop() {
     if (PID_total < -150){
       PID_total =-150;
     }
-    pos = map(PID_total,-150,150,45,135); // map the PID command to a servo angle
+    pos = map(PID_total,-150,150,120,0); // map the PID command to a servo angle
+    Serial.println(error);
+    Serial.println(pos);
     myservo.write(pos); // command to servo
     lastError = error;
-    delay(5);
+    delay(3);
   }
 
 
